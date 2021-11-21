@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Bootstrap</title> 
+		
+			<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+			<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+			<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+			<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4" style="margin-top:20px;">
+				<form>
+					<div class="form-group">
+					    <label for="" class="col-sm-6 control-label">用户Id</label>
+					    <div class="col-sm-12">
+					      <input type="text" class="form-control" id="ss" placeholder="id" >
+					    </div>
+					</div>
+					
+					<div class="form-group">
+					    <label for="InputFile">请上传一张图片</label>
+					    <input type="file" id="InputFile">
+					</div>
+					<button  id="submit" style="width: 150px;background-color: darkcyan;" class="btn btn-primary">Submit</button>
+				    <div class="col-md-4" ></div>
+				</form>
+			</div>
+		
+		</div>
+	</body>
+	
+	<script>
+	$(function() {
+	
+		$("#submit").click(function() {
+			var token = "Basic dGVzdGVyYWRtaW46dGVzdGVycGFzc3dvcmQ=";
+			console.log(token)
+			
+			$.ajax({
+				headers: {
+					// "Authorization" : "BasicCustom"
+				},
+				data:{
+					id:$("#ss").val(),
+					avatar_square:$("#InputFile").val(), 
+				},
+				beforeSend: function(xhr) {
+					// xhr.setRequestHeader ("Authorization", "Basic dGVzdGVyYWRtaW46dGVzdGVycGFzc3dvcmQ=");
+					xhr.setRequestHeader("Authorization", token);
+				},
+				url: "https://www.camptogo.com/test/72b88c04309911ec8d3d0242ac130003/api/v1_0_0/testprovider/avatar_square/upload",
+				type: 'POST',
+				async : true,
+				success: function(result) {		
+					console.log(result);
+					
+						//sessionStorage.setItem("token",token);
+						 //window.location.href= "SearchCreatereply.html" ;
+					
+					
+				}
+			});
+		});
+	});
+	
+	
+	</script>
+</html>

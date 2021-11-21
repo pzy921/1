@@ -1,0 +1,14 @@
+div,p {
+  width: 200px; /* 这里需要设置元素宽度 */
+  height: 150px;
+  background: #222;
+  color: #FFF;
+}
+/* 定义居中关键属性 */
+.center{
+  /* 这里可以设置顶端外边距 */
+  margin: 20px auto;
+}
+body{
+  text-align:center;
+}

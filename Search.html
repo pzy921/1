@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Bootstrap</title> 
+		
+			<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+			<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+			<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+			<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8" style="line-height: 50px;margin-top: 20px;">
+				<p class="text-center" style="background-color: cadetblue;  border-radius: 10%;">用户查询</p>
+				 
+				 <form>
+					<div class="form-group">
+					    <label for="" class="col-sm-6 control-label">用户id</label>
+					    <div class="col-sm-12">
+					      <input type="text" class="form-control" id="id" placeholder="id">
+					    </div>
+					</div>
+					
+					<div class="form-group">
+						
+						    <div align="center">
+						      <button  id="SearchBtn" type="button" style="width: 150px;background-color: darkcyan;" class="btn btn-primary" style="text-align: center;">查询</button>
+						    </div>
+							
+					</div> 
+				</form>
+				
+				<div>
+							<br />
+							<p class="text-center" style="background-color: cadetblue; ">查询结果</p>
+							
+						<table class="table table-bordered" >
+						   
+						   <tbody>
+							   <tr>
+							     <td colspan="8" align="center">用户信息</td>
+							     
+							   </tr>
+						        <tr>
+						          <td style="background-color: aliceblue;" width="200px" >Code</td>
+						          <td width="300px" id="Code"></td>
+						          <td style="background-color: aliceblue;" width="200px" >msg</td>
+								  <td width="300px" id="msg"></td>
+						        </tr>
+						        <tr>
+						          <td style="background-color: aliceblue;" >Details</td>
+						          <td id="Details"> </td>
+						          <td style="background-color: aliceblue;" >id</td>
+								  <td id="id"> </td>
+						        </tr>
+								<tr>
+								  <td style="background-color: aliceblue;" >identifier </td>
+								  <td id="identifier"> </td>
+								  <td style="background-color: aliceblue;" >is_active</td>
+								  <td id="is_active"> </td>
+								</tr>
+								<tr>
+								  <td style="background-color: aliceblue;" >date_created</td>
+								  <td id="date_created"> </td>
+								  <td style="background-color: aliceblue;" >name</td>
+								  <td id="name"> </td>
+								</tr>
+								<tr>
+								  <td style="background-color: aliceblue;" >describe</td>
+								  <td id="describe"> </td>
+								  <td style="background-color: aliceblue;" >exclusive</td>
+								  <td id="exclusive"> </td>
+								</tr>
+								<tr>
+								  <td style="background-color:aliceblue " >honor</td>
+								  <td id="honor"> </td>
+								  <td style="background-color:aliceblue"  >avatar_square</td>
+								  <td id="avatar_square"> </td>
+								</tr>
+								<tr>
+								  <td style="background-color:aliceblue" >portrait</td>
+								  <td id="portrait"> </td>
+								  <td style="background-color:aliceblue" >shows</td>
+								  <td id="shows"> </td>
+								</tr>
+								<tr>
+								  <td style="background-color:aliceblue" > mobile</td>
+								  <td id="mobile"> </td>
+								  <td style="background-color:aliceblue" >email</td>
+								  <td id="email"> </td>
+								</tr>
+								<tr>
+								  <td style="background-color:aliceblue" >wechat</td>
+								  <td id="wechat"> </td>
+								  <td style="background-color:aliceblue" >testcategories </td>
+								  <td id="testcategories"> </td>
+								</tr>
+						      </tbody>
+						    </table>
+							<div align="center">
+									<button id="linkBtn" style="width: 90px;background-color: darkcyan;" class="btn btn-primary" ">更新</button>
+								
+								
+							</div>
+							</div>
+			</div>		
+			<div class="col-md-2"></div>		
+					
+	</body>
+	
+	<script>
+	$(function () {
+		$("#linkBtn").click(function () {
+			var id = $("#id").val();
+			sessionStorage.setItem("id",id);
+			window.location.href= "Update.html" ;
+		})
+		
+		$("#SearchBtn").click(function () {
+			// var token = sessionStorage.getItem("token");
+			var token = "Basic dGVzdGVyYWRtaW46dGVzdGVycGFzc3dvcmQ=";
+			console.log(token)
+			$.ajax({
+				headers: {
+					
+				},
+				beforeSend: function(xhr) {
+					
+					xhr.setRequestHeader("Authorization", token);
+				},
+				url: "https://www.camptogo.com/test/72b88c04309911ec8d3d0242ac130003/v1_0_0/testprovider/get",
+				type: 'post',
+				dataType:'json',
+				data:{
+					id:$("#id").val(),
+				},
+				success: function(res) {		
+					console.log(res);
+					$("#Code").text(res.Code);
+					$("#msg").text(res.msg);
+					// $("#Details").text(res.result.Details);
+					$("#id").text(res.details.id);
+					$("#identifier").text(res.details.identifier);
+					$("#is_active").text(res.details.is_active);
+					$("#date_created").text(res.details.date_created);
+					$("#name").text(res.details.name);
+					$("#describe").text(res.details.describe);
+					$("#exclusive").text(res.details.exclusive);
+					$("#honor").text(res.details.honor);
+					$("#avatar_square").text(res.details.avatar_square);
+					$("#portrait").text(res.details.portrait);
+					$("#shows").text(res.details.shows);
+					$("#mobile").text(res.details.mobile);
+					$("#email").text(res.details.email);
+					$("#wechat").text(res.details.wechat);
+					$("#testcategories").text(res.details.testcategories);
+					
+						//sessionStorage.setItem("token",token);
+		
+						
+						
+						 //window.location.href= "SearchCreatereply.h
+				}
+			});
+		});
+	});
+	</script>
+</html>

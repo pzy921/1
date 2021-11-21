@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Bootstrap</title>
+		<!--Bootstrap4 核心 CSS 文件 -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+		<!-- <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script> -->
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4" style="line-height: 50px;">
+
+				<div style="margin-top: 20px;">
+
+					<p class="text-center" style="background-color: cadetblue;  border-radius: 10%;">用户登录</p>
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="" class="col-sm-6 control-label">用户名</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="Username" placeholder="Username" value="testeradmin">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-6 control-label">密码</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="password" placeholder="password" value="testerpassword">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div align="center">
+								<button id="subBtn" type="button" style="width: 150px;background-color: darkcyan;" class="btn btn-primary" style="text-align: center;">登录</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+
+
+
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</body>
+	<script>
+		$(function() {
+						
+						$("#subBtn").click(function(){
+						var name = $("#Username").val();
+						var password = $("#password").val();
+						var token = "Basic " + window.btoa(name+":"+password) // 编码
+							$.ajax({
+										headers : {
+										  // "Authorization" : "BasicCustom"
+										},
+							    		beforeSend: function (xhr) {
+							    		    // xhr.setRequestHeader ("Authorization", "Basic dGVzdGVyYWRtaW46dGVzdGVycGFzc3dvcmQ=");
+											 xhr.setRequestHeader ("Authorization", token);
+							    		},
+										url: "https://www.camptogo.com/test/72b88c04309911ec8d3d0242ac130003/v1_0_0/testprovider/create",
+							    		type: 'POST', 
+							    		success: function (result) {
+											if(result.Code == 1009){
+												sessionStorage.setItem("token",token);
+												 window.location.href= "Create.html" ;
+												 
+											}
+											// var data=sessionStorage.getItem(key);
+							    		}
+										});
+						});
+		});
+		//
+	</script>
+</html>
